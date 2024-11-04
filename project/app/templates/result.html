@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>User Profile</title>
+  </head>
+
+  <body>
+    <h1>Search Results:</h1>
+    <ul>
+      {% if not result %}
+      <li>No results found</li>
+      {% else %} { % for user in result % }
+      <li>{{ user.username }}</li>
+      { % endfor % } {% endif %}
+    </ul>
+
+    <a href="{% url 'search' %}">Go back to search</a>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>User Profile</title>
+  </head>
+
+  <body>
+    <h1>Search Users (wonky)</h1>
+    <form method="get" action="{% url 'search_results' %}">
+      <label for="search">Search:</label>
+      <input type="text" name="q" id="query" required />
+      <input type="hidden" name="type" value="wonky" />
+      <button type="submit">Search</button>
+    </form>
+
+    <h1>Search Users (proper)</h1>
+    <form method="get" action="{% url 'search_results' %}">
+      <label for="fixed query">Proper Search:</label>
+      <input type="text" name="q" id="query_fixed" required />
+      <input type="hidden" name="type" value="proper" />
+      <button type="submit">Search</button>
+      <br />
+      <br />
+
+      <a href="{% url 'proper_user_profile' user_id=request.user.id %}"
+        >Go back to profile</a
+      >
+    </form>
+  </body>
+</html>
