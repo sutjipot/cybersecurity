@@ -2,19 +2,31 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
-from .models import Profile
+from django.db import connection
+
 
 
 def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('user_profile', user_id=user.id)
+
+        with connection.cursor() as cursor:
+            cursor.execute(f"SELECT * FROM auth_user WHERE username = %s AND password = %s", [username, password])
+            user = cursor.fetchone()
+
+        if user:
+            return redirect('user_profile', user_id=user[0])
         else:
-            return render(request, 'login.html', {'error': 'Invalid credentials'})
+            return render(request, 'login.html', {'error': 'Invalid credentials'})            
+
+        # FIX:
+        # user = authenticate(request, username=username, password=password)
+        # if user is not None:
+        #     login(request, user)
+        #     return redirect('user_profile', user_id=user.id)
+        # else:
+        #     return render(request, 'login.html', {'error': 'Invalid credentials'})
     return render(request, 'login.html')
 
 # broken access control
