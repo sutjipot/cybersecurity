@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-_n1yqlpgq$1^u*hjhcd5wc&u-gra+bv5hcqtkv3(kaf3++pg5$
 # To fix this, just change the DEBUG to False.
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = []
 # Not setting allowed hosts can expsoe sensitive info and allow unauthorized access 
 # To fix this, just add the host to the ALLOWED_HOSTS list.
 
